@@ -1,13 +1,15 @@
-module fr.univ_amu.m1info.board_game_library {
+module fr.univ_amu.l3mi.drawing_app {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
 
-    exports fr.univ_amu.m1info.board_game_library.graphics;
-    exports fr.univ_amu.m1info.board_game_library;
-    exports fr.univ_amu.m1info.board_game_library.graphics.javafx.app;
-    exports fr.univ_amu.m1info.board_game_library.graphics.configuration;
-    exports fr.univ_amu.m1info.board_game_library.graphics.javafx.view;
-    exports fr.univ_amu.m1info.board_game_library.graphics.javafx.bar;
-    exports fr.univ_amu.m1info.board_game_library.graphics.javafx.board;
+    exports fr.univ_amu.l3mi.drawing_app.view;
+    exports fr.univ_amu.l3mi.drawing_app;
+    exports fr.univ_amu.l3mi.drawing_app.view.javafx.app;
+    exports fr.univ_amu.l3mi.drawing_app.view.configuration;
+    exports fr.univ_amu.l3mi.drawing_app.view.javafx.view;
+    exports fr.univ_amu.l3mi.drawing_app.view.javafx.bar;
+    exports fr.univ_amu.l3mi.drawing_app.view.javafx.canvas;
+    exports fr.univ_amu.l3mi.drawing_app.controller;
+    exports fr.univ_amu.l3mi.drawing_app.model;
 }
