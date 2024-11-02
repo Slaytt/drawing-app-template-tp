@@ -18,7 +18,7 @@ public class DrawingApp {
                 List.of(new LabeledElementConfiguration("Clear", "ClearButton", LabeledElementKind.BUTTON)
                 ));
         Controller<DrawingAppView> controller = new DrawingAppController();
-        DrawingAppLauncher launcher = JavaFXAppLauncher.getInstance();
+        DrawingAppLauncher<DrawingAppView> launcher = JavaFXAppLauncher.getInstance();
         launcher.launchApplication(drawingAppConfiguration, controller);
     }
 }
