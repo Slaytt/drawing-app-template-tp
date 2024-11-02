@@ -1,7 +1,9 @@
 package fr.univ_amu.l3mi.drawing_app.view;
 
 
-public interface DrawingAppController {
+import javafx.scene.paint.Color;
+
+public interface Controller<V> {
     void actionOnLeftMousePressed(double x, double y);
 
     void actionOnLeftMouseReleased(double x, double y);
@@ -16,5 +18,9 @@ public interface DrawingAppController {
 
     void buttonActionOnClick(String buttonId);
 
-    void initializeViewOnStart(DrawingAppView view);
+    void initializeViewOnStart(V view);
+
+    void colorPicked(String id, Color color);
+
+    void choicePicked(String id, String choice);
 }

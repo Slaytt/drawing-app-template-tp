@@ -1,12 +1,12 @@
 package fr.univ_amu.l3mi.drawing_app.view.javafx.canvas;
 
-import fr.univ_amu.l3mi.drawing_app.view.Color;
-import fr.univ_amu.l3mi.drawing_app.view.DrawingAppController;
-import fr.univ_amu.l3mi.drawing_app.view.javafx.color.JavaFXColorMapper;
+import fr.univ_amu.l3mi.drawing_app.view.Controller;
+import fr.univ_amu.l3mi.drawing_app.view.DrawingAppView;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
+import javafx.scene.paint.Color;
 
 import java.util.Arrays;
 
@@ -27,19 +27,19 @@ public class DrawingCanvasView extends Canvas {
         this.getGraphicsContext2D().clearRect(0,0,this.getWidth(),this.getHeight());
     }
 
-    public void setController(DrawingAppController controller) {
+    public void setController(Controller<DrawingAppView> controller) {
         setOnMousePressed(event->{
-            if(event.getButton() == MouseButton.SECONDARY)
+            if(event.getButton() == MouseButton.PRIMARY)
                 controller.actionOnLeftMousePressed(event.getX(), event.getY());
             else
-                if(event.getButton() == MouseButton.PRIMARY)
+                if(event.getButton() == MouseButton.SECONDARY)
                     controller.actionOnRightMousePressed(event.getX(), event.getY());
         });
         setOnMouseReleased(event->{
-            if(event.getButton() == MouseButton.SECONDARY)
+            if(event.getButton() == MouseButton.PRIMARY)
                 controller.actionOnLeftMouseReleased(event.getX(), event.getY());
             else
-                if(event.getButton() == MouseButton.PRIMARY)
+                if(event.getButton() == MouseButton.SECONDARY)
                     controller.actionOnRightMouseReleased(event.getX(), event.getY());
         });
         setOnMouseMoved(event->controller.actionOnMouseMoved(event.getX(), event.getY()));
@@ -83,36 +83,36 @@ public class DrawingCanvasView extends Canvas {
     }
 
     private void setStroke(Color color) {
-        gc.setStroke(JavaFXColorMapper.getJavaFXColor(color));
+        gc.setStroke(color);
         gc.setLineWidth(2);
     }
 
     private void setFill(Color color) {
-        javafx.scene.paint.Color baseColor = JavaFXColorMapper.getJavaFXColor(color);
+
         javafx.scene.paint.Color nonOpaqueColor =
-                new javafx.scene.paint.Color(baseColor.getRed(), baseColor.getGreen(), baseColor.getBlue(), 0.5);
+                new javafx.scene.paint.Color(color.getRed(), color.getGreen(), color.getBlue(), 0.5);
         gc.setFill(nonOpaqueColor);
     }
 
 
-    public void strokeCircle(Point2D center, int radius, Color color) {
+    public void strokeCircle(Point2D center, double radius, Color color) {
         setStroke(color);
         gc.strokeOval(center.getX()-radius, center.getY()-radius, 2*radius, 2*radius);
 
     }
 
-    public void fillCircle(Point2D center, int radius, Color color) {
+    public void fillCircle(Point2D center, double radius, Color color) {
         strokeCircle(center, radius, color);
         setFill(color);
         gc.fillOval(center.getX()-radius, center.getY()-radius, 2*radius, 2*radius);
     }
 
-    public void strokeRectangle(Point2D leftTopCorner, int width, int height, Color color) {
+    public void strokeRectangle(Point2D leftTopCorner, double width, double height, Color color) {
         setStroke(color);
         gc.strokeRect(leftTopCorner.getX(), leftTopCorner.getY(), width, height);
     }
 
-    public void fillRectangle(Point2D leftTopCorner, int width, int height, Color color) {
+    public void fillRectangle(Point2D leftTopCorner, double width, double height, Color color) {
         strokeRectangle(leftTopCorner, width, height, color);
         setFill(color);
         gc.fillRect(leftTopCorner.getX(), leftTopCorner.getY(), width, height);

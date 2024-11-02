@@ -2,10 +2,15 @@ package fr.univ_amu.l3mi.drawing_app.view;
 
 
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 
 public interface DrawingAppView {
 
-    void updateLabeledElement(String id, String newText);
+    void updateLabeledElementText(String id, String newText);
+
+    void setComboBoxChoice(String id, String choice);
+
+    void setColorPicked(String id, Color color);
 
     void clearCanvas();
 

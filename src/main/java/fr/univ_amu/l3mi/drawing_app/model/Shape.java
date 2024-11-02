@@ -1,8 +1,7 @@
 package fr.univ_amu.l3mi.drawing_app.model;
 
-import fr.univ_amu.l3mi.drawing_app.view.Color;
 import javafx.geometry.Point2D;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public interface Shape {
     boolean contains(Point2D point);

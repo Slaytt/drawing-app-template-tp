@@ -1,7 +1,7 @@
 package fr.univ_amu.l3mi.drawing_app.model;
 
-import fr.univ_amu.l3mi.drawing_app.view.Color;
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +22,7 @@ public abstract class AbstractShape implements Shape {
 
     @Override
     public Color getColor(){
-
+        return color;
     }
 
     protected void addPoints(Point2D... points){

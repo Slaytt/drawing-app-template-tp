@@ -1,7 +1,7 @@
 package fr.univ_amu.l3mi.drawing_app.model;
 
-import fr.univ_amu.l3mi.drawing_app.view.Color;
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 
 public class Rectangle extends AbstractShape {
 
@@ -11,12 +11,19 @@ public class Rectangle extends AbstractShape {
         double y = Math.min(corner.getY(), oppositeCorner.getY());
         double width = Math.abs(corner.getX() - oppositeCorner.getX());
         double height = Math.abs(corner.getY() - oppositeCorner.getY());
-        addPoints(new Point2D(x,y), new Point2D(x + width, y + height));
+        Point2D upperLeftCorner = new Point2D(x, y);
+        Point2D lowerRightCorner = new Point2D(x + width, y + height);
+        addPoints(upperLeftCorner, lowerRightCorner);
     }
 
     @Override
     public boolean contains(Point2D point) {
-        return false;
+        Point2D upperLeftCorner = point(0);
+        Point2D lowerRightCorner = point(1);
+        return upperLeftCorner.getX() <= point.getX()
+                && upperLeftCorner.getY() <= point.getY()
+                && lowerRightCorner.getX() >= point.getX()
+                && lowerRightCorner.getY() >= point.getY();
     }
 
     @Override

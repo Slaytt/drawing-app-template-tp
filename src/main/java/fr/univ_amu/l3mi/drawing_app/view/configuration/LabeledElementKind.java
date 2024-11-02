@@ -10,5 +10,5 @@ public enum LabeledElementKind {
     BUTTON,
 
     /** A labeled element that represents text. */
-    TEXT
+    TEXT;
 }

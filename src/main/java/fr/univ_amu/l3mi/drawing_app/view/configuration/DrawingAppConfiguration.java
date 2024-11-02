@@ -5,5 +5,7 @@ import java.util.List;
 
 public record DrawingAppConfiguration(String title,
                                       CanvasDimensions dimensions,
+                                      List<ColorPickerConfiguration> colorPickerConfigurations,
+                                      List<ComboBoxConfiguration> comboBoxConfigurations,
                                       List<LabeledElementConfiguration> labeledElementConfigurations) {
 }

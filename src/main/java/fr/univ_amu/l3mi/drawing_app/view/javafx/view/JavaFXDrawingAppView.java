@@ -1,23 +1,24 @@
 package fr.univ_amu.l3mi.drawing_app.view.javafx.view;
 
-import fr.univ_amu.l3mi.drawing_app.view.Color;
-import fr.univ_amu.l3mi.drawing_app.view.DrawingAppController;
+import fr.univ_amu.l3mi.drawing_app.view.Controller;
+import fr.univ_amu.l3mi.drawing_app.view.DrawingAppView;
 import fr.univ_amu.l3mi.drawing_app.view.javafx.bar.Bar;
 import fr.univ_amu.l3mi.drawing_app.view.javafx.canvas.DrawingCanvasView;
 import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class JavaFXDrawingAppView implements DrawingAppControllableView {
     private final Stage stage;
     private DrawingCanvasView drawingCanvasView;
     private Bar bar;
-    private DrawingAppController controller;
+    private Controller<DrawingAppView> controller;
     private VBox vBox;
 
-    public void setController(DrawingAppController controller) {
+    public void setController(Controller<DrawingAppView> controller) {
         this.controller = controller;
         drawingCanvasView.setController(controller);
         vBox.setOnKeyPressed(event -> controller.actionOnKeyPressed(event.getText()));
@@ -41,7 +42,7 @@ public class JavaFXDrawingAppView implements DrawingAppControllableView {
     }
 
     @Override
-    public synchronized void updateLabeledElement(String id, String newText) {
+    public synchronized void updateLabeledElementText(String id, String newText) {
         bar.updateLabel(id, newText);
     }
 
@@ -106,4 +107,16 @@ public class JavaFXDrawingAppView implements DrawingAppControllableView {
         controller.buttonActionOnClick(id);
     }
 
+    public void actionOnColorPicked(String id){
+        controller.colorPicked(id, bar.getPickedColor(id));
+    }
+
+    public void setComboBoxChoice(String id, String choice) {
+
+    }
+
+    @Override
+    public void setColorPicked(String id, Color color) {
+        bar.updateColorPicker(id, color);
+    }
 }

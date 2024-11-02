@@ -1,8 +1,8 @@
 package fr.univ_amu.l3mi.drawing_app.controller;
 
-import fr.univ_amu.l3mi.drawing_app.view.Color;
 import fr.univ_amu.l3mi.drawing_app.view.DrawingAppView;
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 
 public class StrokeVisitor extends DrawVisitor{
     public StrokeVisitor(DrawingAppView view) {

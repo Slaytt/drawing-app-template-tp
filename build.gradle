@@ -29,7 +29,7 @@ tasks.withType(JavaCompile).configureEach {
 
 application {
     mainModule = 'fr.univ_amu.l3mi.drawing_app'
-    mainClass = 'fr.univ_amu.l3mi.drawing_app.HelloApplication'
+    mainClass = 'fr.univ_amu.l3mi.drawing_app.DrawingApp'
 }
 
 javafx {

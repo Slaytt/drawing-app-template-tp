@@ -1,6 +1,8 @@
 package fr.univ_amu.l3mi.drawing_app.view.javafx.app;
 
-import fr.univ_amu.l3mi.drawing_app.view.JavaFXDrawingAppLauncher;
+import fr.univ_amu.l3mi.drawing_app.view.Controller;
+import fr.univ_amu.l3mi.drawing_app.view.DrawingAppView;
+import fr.univ_amu.l3mi.drawing_app.view.JavaFXAppLauncher;
 import fr.univ_amu.l3mi.drawing_app.view.javafx.view.DrawingAppConfigurator;
 import fr.univ_amu.l3mi.drawing_app.view.javafx.view.DrawingAppControllableView;
 import fr.univ_amu.l3mi.drawing_app.view.javafx.view.JavaFXDrawingAppViewBuilder;
@@ -12,9 +14,9 @@ public class JavaFXDrawingApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        var launcher = JavaFXDrawingAppLauncher.getInstance();
+        var launcher = JavaFXAppLauncher.getInstance();
         var configuration = launcher.getConfiguration();
-        var controller = launcher.getController();
+        Controller<DrawingAppView> controller = launcher.getController();
         final JavaFXDrawingAppViewBuilder viewBuilder = new JavaFXDrawingAppViewBuilder(stage);
         new DrawingAppConfigurator().configure(viewBuilder, configuration);
         DrawingAppControllableView view = viewBuilder.getView();

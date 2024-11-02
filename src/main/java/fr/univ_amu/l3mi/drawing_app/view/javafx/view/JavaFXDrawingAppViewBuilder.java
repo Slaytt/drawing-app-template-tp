@@ -2,6 +2,8 @@ package fr.univ_amu.l3mi.drawing_app.view.javafx.view;
 
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class JavaFXDrawingAppViewBuilder implements DrawingAppViewBuilder {
     JavaFXDrawingAppView drawingAppView;
 
@@ -14,6 +16,18 @@ public class JavaFXDrawingAppViewBuilder implements DrawingAppViewBuilder {
         return this;
     }
 
+
+    @Override
+    public DrawingAppViewBuilder addColorPicker(String id, String label) {
+        drawingAppView.getBar().addColorPicker(id, label);
+        drawingAppView.getBar().setColorPickerAction(id, _->drawingAppView.actionOnColorPicked(id));
+        return this;
+    }
+
+    @Override
+    public DrawingAppViewBuilder addComboBox(String id, List<String> choices, String initialChoice) {
+        return this;
+    }
 
     @Override
     public DrawingAppViewBuilder setCanvasDimensions(int width, int height) {
