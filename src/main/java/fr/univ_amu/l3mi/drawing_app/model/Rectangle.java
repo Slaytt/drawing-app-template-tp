@@ -17,16 +17,6 @@ public class Rectangle extends AbstractShape {
     }
 
     @Override
-    public boolean contains(Point2D point) {
-        Point2D upperLeftCorner = getPoint(0);
-        Point2D lowerRightCorner = getPoint(1);
-        return upperLeftCorner.getX() <= point.getX()
-                && upperLeftCorner.getY() <= point.getY()
-                && lowerRightCorner.getX() >= point.getX()
-                && lowerRightCorner.getY() >= point.getY();
-    }
-
-    @Override
     public <R> R accept(ShapeVisitor<R> visitor) {
         return visitor.visit(this);
     }

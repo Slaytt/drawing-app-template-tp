@@ -13,4 +13,5 @@ module fr.univ_amu.l3mi.drawing_app {
     exports fr.univ_amu.l3mi.drawing_app.controller;
     exports fr.univ_amu.l3mi.drawing_app.model;
     exports fr.univ_amu.l3mi.drawing_app.controller.canvas;
+    exports fr.univ_amu.l3mi.drawing_app.model.file;
 }

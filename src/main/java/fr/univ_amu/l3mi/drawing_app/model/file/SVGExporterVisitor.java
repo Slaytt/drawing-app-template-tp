@@ -1,9 +1,16 @@
-package fr.univ_amu.l3mi.drawing_app.model;
+package fr.univ_amu.l3mi.drawing_app.model.file;
 
+import fr.univ_amu.l3mi.drawing_app.model.Rectangle;
+import fr.univ_amu.l3mi.drawing_app.model.Shape;
+import fr.univ_amu.l3mi.drawing_app.model.ShapeContainer;
+import fr.univ_amu.l3mi.drawing_app.model.ShapeVisitor;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
-public class SVGExporterVisitor implements ShapeVisitor<String> {
+import java.io.BufferedWriter;
+import java.io.IOException;
+
+public class SVGExporterVisitor implements ShapeVisitor<String>, ShapeFileWriter {
     public static final int COLOR_RANGE = 255;
 
     String convertColorToString(Color color) {
@@ -17,19 +24,6 @@ public class SVGExporterVisitor implements ShapeVisitor<String> {
                 ')';
     }
 
-
-    public String exportToSVG(ShapeContainer shapeContainer) {
-        StringBuilder sb = new StringBuilder("<svg width=\"");
-        sb.append(shapeContainer.getWidth())
-                .append("\" height=\"")
-                .append(shapeContainer.getHeight())
-                .append("\" xmlns=\"http://www.w3.org/2000/svg\">\n");
-        for (Shape shape : shapeContainer.getShapes()) {
-            sb.append(shape.accept(this));
-        }
-        sb.append("</svg>\n");
-        return sb.toString();
-    }
 
     @Override
     public String visit(Rectangle rectangle) {
@@ -51,5 +45,16 @@ public class SVGExporterVisitor implements ShapeVisitor<String> {
                 "\" stroke-width=\"" +
                 rectangle.getStrokeWidth() +
                 "\" />\n";
+    }
+
+    @Override
+    public void writeShapes(ShapeContainer shapeContainer, BufferedWriter writer) throws IOException {
+        writer.write("<svg width=\"" + shapeContainer.getWidth());
+        writer.write("\" height=\"" + shapeContainer.getHeight());
+        writer.write("\" xmlns=\"http://www.w3.org/2000/svg\">\n");
+        for (Shape shape : shapeContainer.getShapes()) {
+            writer.write(shape.accept(this));
+        }
+        writer.write("</svg>\n");
     }
 }

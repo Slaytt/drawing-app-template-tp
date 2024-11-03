@@ -4,7 +4,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 public interface Shape {
-    boolean contains(Point2D point);
 
     <R> R accept(ShapeVisitor<R> visitor);
 
@@ -17,6 +16,4 @@ public interface Shape {
     double getStrokeWidth();
 
     Point2D getPoint(int index);
-
-    void translate(double dx, double dy);
 }

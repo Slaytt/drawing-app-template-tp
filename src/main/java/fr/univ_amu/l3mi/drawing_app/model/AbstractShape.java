@@ -38,7 +38,6 @@ public abstract class AbstractShape implements Shape {
         return strokeWidth;
     }
 
-
     protected void addPoints(Point2D... points){
         this.points.addAll(Arrays.asList(points));
     }
@@ -48,10 +47,4 @@ public abstract class AbstractShape implements Shape {
         return points.get(index);
     }
 
-    @Override
-    public void translate(double dx, double dy) {
-        for (int index = 0; index < getPointsCount(); index++) {
-            points.set(index, getPoint(index).add(dx, dy));
-        }
-    }
 }

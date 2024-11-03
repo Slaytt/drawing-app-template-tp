@@ -2,7 +2,9 @@ package fr.univ_amu.l3mi.drawing_app.controller;
 
 import fr.univ_amu.l3mi.drawing_app.controller.canvas.PencilValues;
 import fr.univ_amu.l3mi.drawing_app.controller.canvas.ShapeCanvasController;
-import fr.univ_amu.l3mi.drawing_app.model.SVGExporterVisitor;
+import fr.univ_amu.l3mi.drawing_app.model.file.NaiveShapeFileReader;
+import fr.univ_amu.l3mi.drawing_app.model.file.SVGExporterVisitor;
+import fr.univ_amu.l3mi.drawing_app.model.file.ShapeFileWriterVisitor;
 import fr.univ_amu.l3mi.drawing_app.view.Controller;
 import fr.univ_amu.l3mi.drawing_app.view.DrawingAppView;
 import fr.univ_amu.l3mi.drawing_app.view.javafx.view.FileExtension;
@@ -38,10 +40,19 @@ public class DrawingAppController implements Controller<DrawingAppView>, PencilV
     public void buttonActionOnClick(String buttonId) {
         switch (buttonId){
             case "ClearButton" -> shapeCanvasController.clear();
-            case "SVGButton" -> {
-                view.saveFile(new SVGExporterVisitor().exportToSVG(this.shapeCanvasController.getShapeContainer()),
+            case "SVGButton" -> view.saveFile((writer) ->
+                            new SVGExporterVisitor().writeShapes(shapeCanvasController.getShapeContainer(), writer),
                         FileExtension.SVG);
+            case "SaveButton" -> view.saveFile((writer) ->
+                            new ShapeFileWriterVisitor().writeShapes(shapeCanvasController.getShapeContainer(), writer),
+                    FileExtension.DAFF);
+            case "LoadButton" -> {
+                view.readFile((reader) -> new NaiveShapeFileReader().readShapes(shapeCanvasController.getShapeContainer(), reader),
+                        FileExtension.DAFF);
+                shapeCanvasController.repaint();
             }
+            case "UndoButton" -> shapeCanvasController.undo();
+            case "RedoButton" -> shapeCanvasController.redo();
         }
     }
 

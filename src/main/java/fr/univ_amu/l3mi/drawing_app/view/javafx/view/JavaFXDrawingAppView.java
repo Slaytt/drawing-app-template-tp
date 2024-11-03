@@ -1,5 +1,6 @@
 package fr.univ_amu.l3mi.drawing_app.view.javafx.view;
 
+
 import fr.univ_amu.l3mi.drawing_app.view.Controller;
 import fr.univ_amu.l3mi.drawing_app.view.DrawingAppView;
 import fr.univ_amu.l3mi.drawing_app.view.configuration.CanvasDimensions;
@@ -13,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -127,7 +129,7 @@ public class JavaFXDrawingAppView implements DrawingAppControllableView {
     }
 
 
-    public void saveFile(String content, FileExtension fileExtension) {
+    public void saveFile(FileWriter fileWriter, FileExtension fileExtension) {
         FileChooser fileChooser = new FileChooser();
 
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(fileExtension.fileFormatName,
@@ -138,7 +140,7 @@ public class JavaFXDrawingAppView implements DrawingAppControllableView {
         if (file != null) {
             try {
                 BufferedWriter stream = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_16);
-                stream.write(content);
+                fileWriter.write(stream);
                 stream.close();
             }
             catch(IOException exception){
@@ -148,9 +150,22 @@ public class JavaFXDrawingAppView implements DrawingAppControllableView {
     }
 
 
+    @Override
+    public void readFile(FileReader fileReader, FileExtension fileExtension) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(fileExtension.fileFormatName,
+                fileExtension.extension));
+        File file = fileChooser.showOpenDialog(stage);
 
-
-
-
-
+        if (file != null) {
+            try {
+                BufferedReader bufferedReader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_16);
+                fileReader.read(bufferedReader);
+                bufferedReader.close();
+            }
+            catch(IOException exception){
+                exception.printStackTrace();
+            }
+        }
+    }
 }

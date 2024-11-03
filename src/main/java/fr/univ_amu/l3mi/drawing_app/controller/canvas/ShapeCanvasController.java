@@ -102,6 +102,15 @@ public class ShapeCanvasController implements CanvasController, PencilValues {
         // TODO : add delete mode
     }
 
+    public void undo(){
+        context.undo();
+
+    }
+
+    public void redo(){
+        context.redo();
+    }
+
     public void addShape(Shape shape) {
         shapeContainer.addShape(shape);
     }
