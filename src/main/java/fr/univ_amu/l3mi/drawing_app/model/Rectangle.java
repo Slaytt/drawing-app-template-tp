@@ -5,8 +5,8 @@ import javafx.scene.paint.Color;
 
 public class Rectangle extends AbstractShape {
 
-    public Rectangle(Point2D corner, Point2D oppositeCorner, Color color) {
-        super(color);
+    public Rectangle(Point2D corner, Point2D oppositeCorner, Color fillColor, Color stokeColor, double strokeWidth) {
+        super(fillColor, stokeColor, strokeWidth);
         double x = Math.min(corner.getX(), oppositeCorner.getX());
         double y = Math.min(corner.getY(), oppositeCorner.getY());
         double width = Math.abs(corner.getX() - oppositeCorner.getX());
@@ -18,8 +18,8 @@ public class Rectangle extends AbstractShape {
 
     @Override
     public boolean contains(Point2D point) {
-        Point2D upperLeftCorner = point(0);
-        Point2D lowerRightCorner = point(1);
+        Point2D upperLeftCorner = getPoint(0);
+        Point2D lowerRightCorner = getPoint(1);
         return upperLeftCorner.getX() <= point.getX()
                 && upperLeftCorner.getY() <= point.getY()
                 && lowerRightCorner.getX() >= point.getX()

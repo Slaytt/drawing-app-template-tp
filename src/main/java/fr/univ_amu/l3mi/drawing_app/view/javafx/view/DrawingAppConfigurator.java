@@ -18,8 +18,8 @@ public class DrawingAppConfigurator {
                     colorPickerConfiguration.label());
         for (ComboBoxConfiguration comboBoxConfiguration : drawingAppConfiguration.comboBoxConfigurations())
             drawingAppViewBuilder = drawingAppViewBuilder.addComboBox(comboBoxConfiguration.id(),
-                    comboBoxConfiguration.choices(),
-                    comboBoxConfiguration.initialChoice());
+                    comboBoxConfiguration.label(),
+                    comboBoxConfiguration.choices());
         for (LabeledElementConfiguration elementConfiguration : drawingAppConfiguration.labeledElementConfigurations()) {
             switch (elementConfiguration.kind()) {
                 case BUTTON -> drawingAppViewBuilder = drawingAppViewBuilder.addButton(elementConfiguration.id(), elementConfiguration.label());

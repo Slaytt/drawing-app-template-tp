@@ -8,11 +8,15 @@ public interface Shape {
 
     <R> R accept(ShapeVisitor<R> visitor);
 
-    int pointsCount();
+    int getPointsCount();
 
-    Color getColor();
+    Color getFillColor();
 
-    Point2D point(int index);
+    Color getStrokeColor();
+
+    double getStrokeWidth();
+
+    Point2D getPoint(int index);
 
     void translate(double dx, double dy);
 }

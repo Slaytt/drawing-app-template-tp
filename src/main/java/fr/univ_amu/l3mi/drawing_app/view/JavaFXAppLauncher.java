@@ -5,6 +5,7 @@ import fr.univ_amu.l3mi.drawing_app.view.configuration.DrawingAppConfiguration;
 import fr.univ_amu.l3mi.drawing_app.view.javafx.app.JavaFXDrawingApp;
 import javafx.application.Application;
 
+import java.util.Locale;
 
 
 public class JavaFXAppLauncher implements DrawingAppLauncher<DrawingAppView> {
@@ -18,6 +19,7 @@ public class JavaFXAppLauncher implements DrawingAppLauncher<DrawingAppView> {
     private JavaFXAppLauncher() {}
 
     public static JavaFXAppLauncher getInstance() {
+        Locale.setDefault(Locale.ENGLISH);
         JavaFXAppLauncher result = instance;
         if (result != null) {
             return result;

@@ -18,7 +18,7 @@ public class DrawingCanvasView extends Canvas {
         gc = getGraphicsContext2D();
     }
 
-    public void setDimensions(int width, int height) {
+    public void setDimensions(double width, double height) {
         super.setWidth(width);
         super.setHeight(height);
     }
@@ -46,15 +46,9 @@ public class DrawingCanvasView extends Canvas {
         setOnMouseDragged(event->controller.actionOnMouseMoved(event.getX(), event.getY()));
     }
 
-    public void strokeLine(Point2D endPoint1, Point2D endPoint2, Color color) {
-        setStroke(color);
+    public void strokeLine(Point2D endPoint1, Point2D endPoint2, Color color, double strokeWidth) {
+        setStroke(color, strokeWidth);
         gc.strokeLine(endPoint1.getX(), endPoint1.getY(), endPoint2.getX(), endPoint2.getY());
-    }
-
-    public void stokePolyline(Point2D[] points, Color color) {
-        setStroke(color);
-        Points pointsCoordinates = getPoints(points);
-        gc.strokePolyline(pointsCoordinates.xPoints(), pointsCoordinates.yPoints(), pointsCoordinates.nbPoints());
     }
 
     private static Points getPoints(Point2D[] points) {
@@ -69,51 +63,45 @@ public class DrawingCanvasView extends Canvas {
 
 
     public void fillPolygon(Point2D[] points, Color color) {
-        strokePolygon(points, color);
         setFill(color);
         Points pointsCoordinates = getPoints(points);
         gc.fillPolygon(pointsCoordinates.xPoints(), pointsCoordinates.yPoints(), pointsCoordinates.nbPoints());
     }
 
 
-    public void strokePolygon(Point2D[] points, Color color) {
-        setStroke(color);
+    public void strokePolygon(Point2D[] points, Color color, double strokeWidth) {
+        setStroke(color, strokeWidth);
         Points pointsCoordinates = getPoints(points);
         gc.strokePolygon(pointsCoordinates.xPoints(), pointsCoordinates.yPoints(), pointsCoordinates.nbPoints());
     }
 
-    private void setStroke(Color color) {
+    private void setStroke(Color color, double strokeWidth) {
         gc.setStroke(color);
-        gc.setLineWidth(2);
+        gc.setLineWidth(strokeWidth);
     }
 
     private void setFill(Color color) {
-
-        javafx.scene.paint.Color nonOpaqueColor =
-                new javafx.scene.paint.Color(color.getRed(), color.getGreen(), color.getBlue(), 0.5);
-        gc.setFill(nonOpaqueColor);
+        gc.setFill(color);
     }
 
 
-    public void strokeCircle(Point2D center, double radius, Color color) {
-        setStroke(color);
+    public void strokeCircle(Point2D center, double radius, Color color, double strokeWidth) {
+        setStroke(color,strokeWidth);
         gc.strokeOval(center.getX()-radius, center.getY()-radius, 2*radius, 2*radius);
 
     }
 
     public void fillCircle(Point2D center, double radius, Color color) {
-        strokeCircle(center, radius, color);
         setFill(color);
         gc.fillOval(center.getX()-radius, center.getY()-radius, 2*radius, 2*radius);
     }
 
-    public void strokeRectangle(Point2D leftTopCorner, double width, double height, Color color) {
-        setStroke(color);
+    public void strokeRectangle(Point2D leftTopCorner, double width, double height, Color color, double strokeWidth) {
+        setStroke(color, strokeWidth);
         gc.strokeRect(leftTopCorner.getX(), leftTopCorner.getY(), width, height);
     }
 
     public void fillRectangle(Point2D leftTopCorner, double width, double height, Color color) {
-        strokeRectangle(leftTopCorner, width, height, color);
         setFill(color);
         gc.fillRect(leftTopCorner.getX(), leftTopCorner.getY(), width, height);
     }

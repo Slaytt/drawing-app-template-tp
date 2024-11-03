@@ -2,6 +2,7 @@ package fr.univ_amu.l3mi.drawing_app.view.javafx.view;
 
 import fr.univ_amu.l3mi.drawing_app.view.Controller;
 import fr.univ_amu.l3mi.drawing_app.view.DrawingAppView;
+import fr.univ_amu.l3mi.drawing_app.view.configuration.CanvasDimensions;
 import fr.univ_amu.l3mi.drawing_app.view.javafx.bar.Bar;
 import fr.univ_amu.l3mi.drawing_app.view.javafx.canvas.DrawingCanvasView;
 import javafx.application.Platform;
@@ -9,7 +10,14 @@ import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 public class JavaFXDrawingAppView implements DrawingAppControllableView {
     private final Stage stage;
@@ -52,43 +60,37 @@ public class JavaFXDrawingAppView implements DrawingAppControllableView {
     }
 
     @Override
-    public void fillRectangle(Point2D leftTopCorner, double width, double height, Color color) {
-        drawingCanvasView.fillRectangle(leftTopCorner, width, height, color);
+    public void drawRectangle(Point2D leftTopCorner, double width, double height, Color fillColor, Color strokeColor, double strokeWidth) {
+        drawingCanvasView.fillRectangle(leftTopCorner, width, height, fillColor);
+        drawingCanvasView.strokeRectangle(leftTopCorner, width, height, strokeColor, strokeWidth);
+    }
+
+
+    @Override
+    public void drawCircle(Point2D center, double radius, Color fillColor, Color strokeColor, double strokeWidth) {
+        drawingCanvasView.fillCircle(center, radius, fillColor);
+        drawingCanvasView.strokeCircle(center, radius, strokeColor, strokeWidth);
     }
 
     @Override
-    public void strokeRectangle(Point2D leftTopCorner, double width, double height, Color color) {
-        drawingCanvasView.strokeRectangle(leftTopCorner, width, height, color);
+    public CanvasDimensions getCanvasDimensions() {
+        return new CanvasDimensions(drawingCanvasView.getWidth(), drawingCanvasView.getHeight());
     }
 
     @Override
-    public void fillCircle(Point2D center, double radius, Color color) {
-        drawingCanvasView.fillCircle(center, radius, color);
+    public void setCanvasDimensions(CanvasDimensions canvasDimensions) {
+        drawingCanvasView.setDimensions(canvasDimensions.width(), canvasDimensions.height());
     }
 
     @Override
-    public void strokeCircle(Point2D center, double radius, Color color) {
-        drawingCanvasView.strokeCircle(center, radius, color);
+    public void drawPolygon(Point2D[] points, Color fillColor, Color strokeColor, double strokeWidth) {
+        drawingCanvasView.fillPolygon(points, fillColor);
+        drawingCanvasView.strokePolygon(points, strokeColor, strokeWidth);
     }
 
     @Override
-    public void fillPolygon(Point2D[] points, Color color) {
-        drawingCanvasView.fillPolygon(points, color);
-    }
-
-    @Override
-    public void strokePolygon(Point2D[] points, Color color) {
-        drawingCanvasView.strokePolygon(points, color);
-    }
-
-    @Override
-    public void strokeLine(Point2D endPoint1, Point2D endPoint2, Color color) {
-        drawingCanvasView.strokeLine(endPoint1,endPoint2, color);
-    }
-
-    @Override
-    public void strokePolyline(Point2D[] points, Color color) {
-        drawingCanvasView.stokePolyline(points, color);
+    public void drawLine(Point2D endPoint1, Point2D endPoint2, Color color, double strokeWidth) {
+        drawingCanvasView.strokeLine(endPoint1,endPoint2, color, strokeWidth);
     }
 
     public DrawingCanvasView getDrawingCanvasView() {
@@ -111,12 +113,44 @@ public class JavaFXDrawingAppView implements DrawingAppControllableView {
         controller.colorPicked(id, bar.getPickedColor(id));
     }
 
-    public void setComboBoxChoice(String id, String choice) {
+    public void actionOnChoicePicked(String id){
+        controller.choicePicked(id, bar.getPickedChoice(id));
+    }
 
+    public void setComboBoxChoice(String id, String choice) {
+        bar.updateComboBox(id, choice);
     }
 
     @Override
     public void setColorPicked(String id, Color color) {
         bar.updateColorPicker(id, color);
     }
+
+
+    public void saveFile(String content, FileExtension fileExtension) {
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(fileExtension.fileFormatName,
+                fileExtension.extension));
+
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            try {
+                BufferedWriter stream = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_16);
+                stream.write(content);
+                stream.close();
+            }
+            catch(IOException exception){
+                exception.printStackTrace();
+            }
+        }
+    }
+
+
+
+
+
+
+
 }

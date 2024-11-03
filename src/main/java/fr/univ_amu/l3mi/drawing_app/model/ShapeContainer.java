@@ -7,13 +7,27 @@ import java.util.List;
 
 public class ShapeContainer {
     private final List<Shape> shapes = new ArrayList<>();
+    private double width;
+    private double height;
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
 
     public void addShape(Shape shape){
         shapes.add(shape);
-    }
-
-    public List<Shape> shapesContaining(Point2D point){
-        return shapes.stream().filter(shape -> shape.contains(point)).toList();
     }
 
     public List<Shape> getShapes() {

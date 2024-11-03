@@ -1,21 +1,22 @@
 package fr.univ_amu.l3mi.drawing_app.view.javafx.bar;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Bar extends HBox {
     private final Map<String, Labeled> labeledElements = new HashMap<>();
     private final Map<String, Button> buttons = new HashMap<>();
     private final Map<String, ColorPicker> colorPickers = new HashMap<>();
+    private final Map<String, ComboBox<String>> comboBoxes = new HashMap<>();
 
     public Bar() {
         super();
@@ -43,9 +44,18 @@ public class Bar extends HBox {
         return colorPickers.get(id).getValue();
     }
 
+    public String getPickedChoice(String id){
+        return comboBoxes.get(id).getValue();
+    }
+
     public void setColorPickerAction(String id, ColorPickedAction colorPickedAction){
         ColorPicker colorPicker = colorPickers.get(id);
         colorPicker.setOnAction(_ -> colorPickedAction.onColorPicked(colorPicker.getValue()));
+    }
+
+    public void setComboBoxAction(String id, ChoicePickedAction choicePickedAction){
+        ComboBox<String> comboBox = comboBoxes.get(id);
+        comboBox.setOnAction(_ -> choicePickedAction.onChoicePicked(comboBox.getValue()));
     }
 
     public void addButton(String id, String label){
@@ -62,6 +72,14 @@ public class Bar extends HBox {
         this.getChildren().add(colorPicker);
     }
 
+    public void addComboBox(String id, String label, List<String> choices){
+        addLabel(id+"Label", label);
+        ComboBox<String> comboBox = new ComboBox<>(FXCollections.observableList(choices));
+        comboBox.setValue(choices.getFirst());
+        comboBoxes.put(id, comboBox);
+        this.getChildren().add(comboBox);
+    }
+
     public void updateLabel(String id, String newText){
         if(labeledElements.containsKey(id)){
             labeledElements.get(id).setText(newText);
@@ -73,4 +91,10 @@ public class Bar extends HBox {
             colorPickers.get(id).setValue(newColor);
         }
     }
+    public void updateComboBox(String id, String choice){
+        if(comboBoxes.containsKey(id)){
+            comboBoxes.get(id).setValue(choice);
+        }
+    }
+
 }
