@@ -78,29 +78,9 @@ public class ShapeCanvasController implements CanvasController, PencilValues {
         repaint();
     }
 
-    public void switchToRectangleEdition() {
-        context.switchToRectangleEdition();
-    }
-
-    public void switchToViewerMode() {
-        context.switchToViewerMode();
-    }
-
-    public void switchToMoveEdition() {
-        context.switchToMoveEdition();
-    }
-
-    public void switchToCircleEdition() {
-        context.switchToCircleEdition();
-    }
-
-    public void switchToPolygonEdition() {
-        context.switchToPolygonEdition();
-    }
-
-    public void switchToDeleteEdition() {
-        context.switchToDeleteEdition();
-    }
+   public void switchToMode(Mode mode){
+        context.switchToMode(mode);
+   }
 
     public void undo(){
         context.undo();

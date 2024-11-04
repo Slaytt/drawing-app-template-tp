@@ -16,6 +16,18 @@ public class Rectangle extends AbstractShape {
         addPoints(topLeftCorner, bottomRightCorner);
     }
 
+    public Point2D getTopLeftCorner() {
+        return getPoint(0);
+    }
+
+    public double getWidth(){
+        return getPoint(1).getX() - getPoint(0).getX();
+    }
+
+    public double getHeight(){
+        return getPoint(1).getY() - getPoint(0).getY();
+    }
+
     @Override
     public <R> R accept(ShapeVisitor<R> visitor) {
         return visitor.visit(this);

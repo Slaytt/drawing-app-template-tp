@@ -22,13 +22,12 @@ public class DrawVisitor implements ShapeVisitor<Void> {
 
     @Override
     public Void visit(Rectangle rectangle) {
-        Point2D upperLeftCorner = rectangle.getPoint(0);
-        Point2D lowerRightCorner = rectangle.getPoint(1);
-        double width = lowerRightCorner.getX() - upperLeftCorner.getX();
-        double height = lowerRightCorner.getY() - upperLeftCorner.getY();
+        Point2D topLeftCorner = rectangle.getTopLeftCorner();
+        double width = rectangle.getWidth();
+        double height = rectangle.getHeight();
         Color fillColor = rectangle.getFillColor();
         Color strokeColor = rectangle.getStrokeColor();
-        view.drawRectangle(upperLeftCorner, width, height, fillColor, strokeColor, rectangle.getStrokeWidth());
+        view.drawRectangle(topLeftCorner, width, height, fillColor, strokeColor, rectangle.getStrokeWidth());
         return null;
     }
 

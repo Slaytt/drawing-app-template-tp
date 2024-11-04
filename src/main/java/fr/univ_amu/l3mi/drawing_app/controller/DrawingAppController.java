@@ -1,5 +1,6 @@
 package fr.univ_amu.l3mi.drawing_app.controller;
 
+import fr.univ_amu.l3mi.drawing_app.controller.canvas.Mode;
 import fr.univ_amu.l3mi.drawing_app.controller.canvas.PencilValues;
 import fr.univ_amu.l3mi.drawing_app.controller.canvas.ShapeCanvasController;
 import fr.univ_amu.l3mi.drawing_app.model.file.NaiveShapeFileReader;
@@ -13,7 +14,7 @@ import javafx.scene.paint.Color;
 public class DrawingAppController implements Controller<DrawingAppView>, PencilValues {
     private DrawingAppView view;
     private Color strokeColor;
-    private double opacity = 0.25;
+    private double opacity = 0.;
     private double strokeWidth = 1.0;
     private final ShapeCanvasController shapeCanvasController;
 
@@ -72,50 +73,16 @@ public class DrawingAppController implements Controller<DrawingAppView>, PencilV
 
     @Override
     public void actionOnKeyPressed(String key) {
-        String mode;
-        switch (key) {
-            case "r" ->{
-                shapeCanvasController.switchToRectangleEdition();
-                mode = "Rectangle";
-            }
-            case "m" ->{
-                shapeCanvasController.switchToMoveEdition();
-                mode = "Move";
-            }
-            case "d" ->{
-                shapeCanvasController.switchToDeleteEdition();
-                mode = "Delete";
-            }
-            case "c" -> {
-                shapeCanvasController.switchToCircleEdition();
-                mode = "Circle";
-            }
-            case "p" -> {
-                shapeCanvasController.switchToPolygonEdition();
-                mode = "Polygon";
-            }
-            case "v" -> {
-                shapeCanvasController.switchToViewerMode();
-                mode = "Viewer";
-            }
-            default -> mode = "Viewer";
-        }
-        view.setComboBoxChoice("ModeComboBox", mode);
+        Mode mode = Mode.getModeByKey(key);
+        System.out.println("Mode: " + mode);
+        view.setComboBoxChoice("ModeComboBox", mode.getName());
+        shapeCanvasController.switchToMode(mode);
     }
 
     @Override
     public void choicePicked(String id, String choice) {
         switch (id){
-            case "ModeComboBox" -> {
-                switch (choice) {
-                    case "Polygon" -> shapeCanvasController.switchToPolygonEdition();
-                    case "Move" -> shapeCanvasController.switchToMoveEdition();
-                    case "Circle" -> shapeCanvasController.switchToCircleEdition();
-                    case "Rectangle" -> shapeCanvasController.switchToRectangleEdition();
-                    case "Viewer" -> shapeCanvasController.switchToViewerMode();
-                    case "Delete" -> shapeCanvasController.switchToDeleteEdition();
-                }
-            }
+            case "ModeComboBox" -> shapeCanvasController.switchToMode(Mode.getModeByName(choice));
             case "OpacityComboBox" -> opacity = Double.parseDouble(choice);
             case "StrokeWidthComboBox" -> strokeWidth = Double.parseDouble(choice);
         }

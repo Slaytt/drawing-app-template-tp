@@ -20,7 +20,7 @@ java {
 }
 
 ext {
-    junitVersion = '5.10.2'
+    junitVersion = '5.11.3'
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -38,6 +38,7 @@ javafx {
 }
 
 dependencies {
+    testImplementation("org.assertj:assertj-core:3.26.3")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }

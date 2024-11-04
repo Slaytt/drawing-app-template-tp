@@ -39,7 +39,11 @@ public abstract class AbstractShape implements Shape {
     }
 
     protected void addPoints(Point2D... points){
-        this.points.addAll(Arrays.asList(points));
+        this.addPoints(Arrays.asList(points));
+    }
+
+    protected void addPoints(List<Point2D> points){
+        this.points.addAll(points);
     }
 
     @Override

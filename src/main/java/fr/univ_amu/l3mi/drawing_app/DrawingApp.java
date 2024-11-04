@@ -1,6 +1,7 @@
 package fr.univ_amu.l3mi.drawing_app;
 
 import fr.univ_amu.l3mi.drawing_app.controller.DrawingAppController;
+import fr.univ_amu.l3mi.drawing_app.controller.canvas.Mode;
 import fr.univ_amu.l3mi.drawing_app.view.*;
 
 
@@ -14,10 +15,9 @@ public class DrawingApp {
         DrawingAppConfiguration drawingAppConfiguration = new DrawingAppConfiguration("Drawing App",
                 new CanvasDimensions(1000, 800),
                 List.of(new ColorPickerConfiguration("Color", "ColorPicker")),
-                List.of(new ComboBoxConfiguration("Opacity", "OpacityComboBox", List.of("0.25" , "0.5", "0.75", "1.0")),
+                List.of(new ComboBoxConfiguration("Opacity", "OpacityComboBox", List.of("0", "0.25" , "0.5", "0.75", "1.0")),
                         new ComboBoxConfiguration("Stroke width", "StrokeWidthComboBox", List.of("1" , "2", "4", "8", "16")),
-                        new ComboBoxConfiguration("Mode", "ModeComboBox", List.of("Viewer",
-                                "Rectangle", "Circle", "Move", "Polygon", "Delete" ))
+                        new ComboBoxConfiguration("Mode", "ModeComboBox", Mode.getNames())
                         ),
                 List.of(new LabeledElementConfiguration("Undo", "UndoButton", LabeledElementKind.BUTTON),
                         new LabeledElementConfiguration("Redo", "RedoButton", LabeledElementKind.BUTTON),

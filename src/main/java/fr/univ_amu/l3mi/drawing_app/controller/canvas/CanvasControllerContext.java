@@ -41,12 +41,12 @@ public class CanvasControllerContext {
         shapeCanvasController.repaint();
     }
 
-    public void switchToRectangleEdition(){
+    private void switchToRectangleEdition(){
         rectangleEdition = true;
         rectangleEditionClicked = false;
     }
 
-    public void switchToViewerMode(){
+    private void switchToViewerMode(){
         rectangleEdition = false;
         rectangleEditionClicked = false;
     }
@@ -55,7 +55,7 @@ public class CanvasControllerContext {
         rectangleEdition = false;
         rectangleEditionClicked = true;
         mouseClickedPoint = new Point2D(x, y);
-        mousePoint = new Point2D(x, y);
+        setMousePoint(new Point2D(x, y));
     }
 
     public void paint(CanvasView view){
@@ -67,12 +67,20 @@ public class CanvasControllerContext {
         }
     }
 
+    public Point2D getMousePoint() {
+        return mousePoint;
+    }
+
+    public void setMousePoint(Point2D mousePoint) {
+        this.mousePoint = mousePoint;
+    }
+
     private void strokeCross(Point2D mousePoint, CanvasView view) {
-        Point2D p1 = mousePoint.add(new Point2D(10,0));
-        Point2D p2 = mousePoint.add(new Point2D(-10,0));
+        Point2D p1 = getMousePoint().add(new Point2D(10,0));
+        Point2D p2 = getMousePoint().add(new Point2D(-10,0));
         view.drawLine(p1, p2, Color.BLACK, CROSS_STROKE_WIDTH);
-        Point2D p3 = mousePoint.add(new Point2D(0,10));
-        Point2D p4 = mousePoint.add(new Point2D(0,-10));
+        Point2D p3 = getMousePoint().add(new Point2D(0,10));
+        Point2D p4 = getMousePoint().add(new Point2D(0,-10));
         view.drawLine(p3, p4, Color.BLACK, CROSS_STROKE_WIDTH);
     }
 
@@ -88,19 +96,19 @@ public class CanvasControllerContext {
 
     }
 
-    public void switchToMoveEdition() {
-        // TODO : add move edition
+    private void switchToMoveMode() {
+        // TODO : add move mode
     }
 
-    public void switchToCircleEdition() {
+    private void switchToCircleEdition() {
         // TODO : add circle edition
     }
 
-    public void switchToPolygonEdition() {
+    private void switchToPolygonEdition() {
         // TODO : add polygon edition
     }
 
-    public void switchToDeleteEdition() {
+    private void switchToDeleteMode() {
         // TODO : add delete mode
     }
 
@@ -110,6 +118,17 @@ public class CanvasControllerContext {
 
     public void undo() {
         // TODO : add undo
+    }
+
+    public void switchToMode(Mode mode) {
+        switch (mode){
+            case DELETE_MODE -> switchToDeleteMode();
+            case VIEWER_MODE -> switchToViewerMode();
+            case MOVE_EDITION -> switchToMoveMode();
+            case CIRCLE_EDITION -> switchToCircleEdition();
+            case POLYGON_EDITION -> switchToPolygonEdition();
+            case RECTANGLE_EDITION -> switchToRectangleEdition();
+        }
     }
 }
 

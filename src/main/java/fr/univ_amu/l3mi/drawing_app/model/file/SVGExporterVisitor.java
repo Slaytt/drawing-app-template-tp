@@ -27,13 +27,12 @@ public class SVGExporterVisitor implements ShapeVisitor<String>, ShapeFileWriter
 
     @Override
     public String visit(Rectangle rectangle) {
-        Point2D upperLeftCorner = rectangle.getPoint(0);
-        Point2D lowerRightCorner = rectangle.getPoint(1);
-        double width = lowerRightCorner.getX() - upperLeftCorner.getX();
-        double height = lowerRightCorner.getY() - upperLeftCorner.getY();
-        return "<rect x=\"" + upperLeftCorner.getX() +
+        Point2D topLeftCorner = rectangle.getTopLeftCorner();
+        double width = rectangle.getWidth();
+        double height = rectangle.getHeight();
+        return "<rect x=\"" + topLeftCorner.getX() +
                 "\" y=\"" +
-                upperLeftCorner.getY() +
+                topLeftCorner.getY() +
                 "\" width=\"" +
                 width +
                 "\" height=\"" +
