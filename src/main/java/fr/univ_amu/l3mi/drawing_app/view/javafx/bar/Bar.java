@@ -1,7 +1,6 @@
 package fr.univ_amu.l3mi.drawing_app.view.javafx.bar;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -78,12 +77,6 @@ public class Bar extends HBox {
         comboBox.setValue(choices.getFirst());
         comboBoxes.put(id, comboBox);
         this.getChildren().add(comboBox);
-    }
-
-    public void updateLabel(String id, String newText){
-        if(labeledElements.containsKey(id)){
-            labeledElements.get(id).setText(newText);
-        }
     }
 
     public void updateColorPicker(String id, Color newColor){

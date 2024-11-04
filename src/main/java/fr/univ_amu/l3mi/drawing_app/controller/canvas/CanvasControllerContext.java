@@ -60,7 +60,7 @@ public class CanvasControllerContext {
 
     public void paint(CanvasView view){
         if(rectangleEdition) {
-            strokeCross(mousePoint, view);
+            strokeCross(view);
         }
         if(rectangleEditionClicked){
             strokeRectangleBetweenClickedPointAndCursorPoint(view);
@@ -75,7 +75,7 @@ public class CanvasControllerContext {
         this.mousePoint = mousePoint;
     }
 
-    private void strokeCross(Point2D mousePoint, CanvasView view) {
+    private void strokeCross(CanvasView view) {
         Point2D p1 = getMousePoint().add(new Point2D(10,0));
         Point2D p2 = getMousePoint().add(new Point2D(-10,0));
         view.drawLine(p1, p2, Color.BLACK, CROSS_STROKE_WIDTH);

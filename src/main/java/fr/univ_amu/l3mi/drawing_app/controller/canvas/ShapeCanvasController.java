@@ -5,6 +5,7 @@ import fr.univ_amu.l3mi.drawing_app.model.Shape;
 import fr.univ_amu.l3mi.drawing_app.model.ShapeContainer;
 import fr.univ_amu.l3mi.drawing_app.view.CanvasController;
 import fr.univ_amu.l3mi.drawing_app.view.CanvasView;
+import fr.univ_amu.l3mi.drawing_app.view.configuration.CanvasDimensions;
 import javafx.scene.paint.Color;
 
 public class ShapeCanvasController implements CanvasController, PencilValues {
@@ -35,6 +36,7 @@ public class ShapeCanvasController implements CanvasController, PencilValues {
 
     public void repaint(){
         view.clearCanvas();
+        view.setCanvasDimensions(new CanvasDimensions(shapeContainer.getWidth(), shapeContainer.getHeight()));
         drawShapes();
         context.paint(view);
     }

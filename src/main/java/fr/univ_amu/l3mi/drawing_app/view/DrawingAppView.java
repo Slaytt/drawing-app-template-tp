@@ -9,8 +9,6 @@ import javafx.scene.paint.Color;
 
 public interface DrawingAppView extends CanvasView {
 
-    void updateLabeledElementText(String id, String newText);
-
     void setComboBoxChoice(String id, String choice);
 
     void setColorPicked(String id, Color color);

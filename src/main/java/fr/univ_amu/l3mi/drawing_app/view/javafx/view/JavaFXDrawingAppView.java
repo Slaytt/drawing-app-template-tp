@@ -52,11 +52,6 @@ public class JavaFXDrawingAppView implements DrawingAppControllableView {
     }
 
     @Override
-    public synchronized void updateLabeledElementText(String id, String newText) {
-        bar.updateLabel(id, newText);
-    }
-
-    @Override
     public void clearCanvas() {
         drawingCanvasView.clear();
     }

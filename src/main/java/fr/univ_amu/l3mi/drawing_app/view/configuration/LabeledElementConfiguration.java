@@ -1,7 +1,7 @@
 package fr.univ_amu.l3mi.drawing_app.view.configuration;
 
 /**
- * Record representing the configuration of a labeled element in a board game.
+ * Record representing the configuration of a labeled element in a drawing app.
  * It stores the label, an identifier, and the type of the labeled element.
  *
  * @param label the text label of the element.

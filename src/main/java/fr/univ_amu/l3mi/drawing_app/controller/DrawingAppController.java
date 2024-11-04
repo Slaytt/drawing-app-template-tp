@@ -74,7 +74,6 @@ public class DrawingAppController implements Controller<DrawingAppView>, PencilV
     @Override
     public void actionOnKeyPressed(String key) {
         Mode mode = Mode.getModeByKey(key);
-        System.out.println("Mode: " + mode);
         view.setComboBoxChoice("ModeComboBox", mode.getName());
         shapeCanvasController.switchToMode(mode);
     }
