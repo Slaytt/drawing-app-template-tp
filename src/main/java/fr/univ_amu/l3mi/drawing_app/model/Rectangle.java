@@ -11,9 +11,9 @@ public class Rectangle extends AbstractShape {
         double y = Math.min(corner.getY(), oppositeCorner.getY());
         double width = Math.abs(corner.getX() - oppositeCorner.getX());
         double height = Math.abs(corner.getY() - oppositeCorner.getY());
-        Point2D upperLeftCorner = new Point2D(x, y);
-        Point2D lowerRightCorner = new Point2D(x + width, y + height);
-        addPoints(upperLeftCorner, lowerRightCorner);
+        Point2D topLeftCorner = new Point2D(x, y);
+        Point2D bottomRightCorner = new Point2D(x + width, y + height);
+        addPoints(topLeftCorner, bottomRightCorner);
     }
 
     @Override

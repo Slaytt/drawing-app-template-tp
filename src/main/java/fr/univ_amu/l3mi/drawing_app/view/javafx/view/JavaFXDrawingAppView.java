@@ -62,9 +62,9 @@ public class JavaFXDrawingAppView implements DrawingAppControllableView {
     }
 
     @Override
-    public void drawRectangle(Point2D leftTopCorner, double width, double height, Color fillColor, Color strokeColor, double strokeWidth) {
-        drawingCanvasView.fillRectangle(leftTopCorner, width, height, fillColor);
-        drawingCanvasView.strokeRectangle(leftTopCorner, width, height, strokeColor, strokeWidth);
+    public void drawRectangle(Point2D topLeftCorner, double width, double height, Color fillColor, Color strokeColor, double strokeWidth) {
+        drawingCanvasView.fillRectangle(topLeftCorner, width, height, fillColor);
+        drawingCanvasView.strokeRectangle(topLeftCorner, width, height, strokeColor, strokeWidth);
     }
 
 
