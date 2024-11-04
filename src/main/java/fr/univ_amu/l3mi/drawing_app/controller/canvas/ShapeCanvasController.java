@@ -87,24 +87,23 @@ public class ShapeCanvasController implements CanvasController, PencilValues {
     }
 
     public void switchToMoveEdition() {
-        // TODO : add move edition
+        context.switchToMoveEdition();
     }
 
     public void switchToCircleEdition() {
-        // TODO : add circle edition
+        context.switchToCircleEdition();
     }
 
     public void switchToPolygonEdition() {
-        // TODO : add polygon edition
+        context.switchToPolygonEdition();
     }
 
     public void switchToDeleteEdition() {
-        // TODO : add delete mode
+        context.switchToDeleteEdition();
     }
 
     public void undo(){
         context.undo();
-
     }
 
     public void redo(){

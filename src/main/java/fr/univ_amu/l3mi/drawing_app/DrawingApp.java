@@ -19,12 +19,12 @@ public class DrawingApp {
                         new ComboBoxConfiguration("Mode", "ModeComboBox", List.of("Viewer",
                                 "Rectangle", "Circle", "Move", "Polygon", "Delete" ))
                         ),
-                List.of(new LabeledElementConfiguration("Clear", "ClearButton", LabeledElementKind.BUTTON),
+                List.of(new LabeledElementConfiguration("Undo", "UndoButton", LabeledElementKind.BUTTON),
+                        new LabeledElementConfiguration("Redo", "RedoButton", LabeledElementKind.BUTTON),
+                        new LabeledElementConfiguration("Clear", "ClearButton", LabeledElementKind.BUTTON),
                         new LabeledElementConfiguration("Save", "SaveButton", LabeledElementKind.BUTTON),
                         new LabeledElementConfiguration("Load", "LoadButton", LabeledElementKind.BUTTON),
-                        new LabeledElementConfiguration("Export to SVG", "SVGButton", LabeledElementKind.BUTTON),
-                        new LabeledElementConfiguration("Undo", "UndoButton", LabeledElementKind.BUTTON),
-                        new LabeledElementConfiguration("Redo", "RedoButton", LabeledElementKind.BUTTON)
+                        new LabeledElementConfiguration("Export to SVG", "SVGButton", LabeledElementKind.BUTTON)
                 ));
         Controller<DrawingAppView> controller = new DrawingAppController();
         DrawingAppLauncher<DrawingAppView> launcher = JavaFXAppLauncher.getInstance();

@@ -41,7 +41,6 @@ public class CanvasControllerContext {
         shapeCanvasController.repaint();
     }
 
-
     public void switchToRectangleEdition(){
         rectangleEdition = true;
         rectangleEditionClicked = false;
@@ -53,13 +52,14 @@ public class CanvasControllerContext {
     }
 
     private void switchToRectangleEditionClicked(double x, double y){
+        rectangleEdition = false;
         rectangleEditionClicked = true;
         mouseClickedPoint = new Point2D(x, y);
         mousePoint = new Point2D(x, y);
     }
 
     public void paint(CanvasView view){
-        if(rectangleEdition || rectangleEditionClicked) {
+        if(rectangleEdition) {
             strokeCross(mousePoint, view);
         }
         if(rectangleEditionClicked){
@@ -86,6 +86,22 @@ public class CanvasControllerContext {
 
     public void actionOnRightMouseReleased(double x, double y) {
 
+    }
+
+    public void switchToMoveEdition() {
+        // TODO : add move edition
+    }
+
+    public void switchToCircleEdition() {
+        // TODO : add circle edition
+    }
+
+    public void switchToPolygonEdition() {
+        // TODO : add polygon edition
+    }
+
+    public void switchToDeleteEdition() {
+        // TODO : add delete mode
     }
 
     public void redo() {
