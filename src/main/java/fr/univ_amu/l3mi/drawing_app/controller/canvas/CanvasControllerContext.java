@@ -30,7 +30,7 @@ public class CanvasControllerContext implements PencilValues {
             mousePoint = new Point2D(x, y);
             Shape rectangle = new Rectangle(mouseClickedPoint, mousePoint, getFillColor(),
                     getStrokeColor(), shapeCanvasController.getStrokeWidth());
-            shapeCanvasController.addShape(rectangle);
+            addShape(rectangle);
             switchToRectangleEdition();
             shapeCanvasController.repaint();
         }
@@ -144,6 +144,10 @@ public class CanvasControllerContext implements PencilValues {
     @Override
     public double getStrokeWidth() {
         return shapeCanvasController.getStrokeWidth();
+    }
+
+    public void addShape(Shape shape) {
+        shapeCanvasController.addShape(shape);
     }
 }
 
