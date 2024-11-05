@@ -129,6 +129,7 @@ public class CanvasControllerContext implements PencilValues {
             case POLYGON_EDITION -> switchToPolygonEdition();
             case RECTANGLE_EDITION -> switchToRectangleEdition();
         }
+        repaint();
     }
 
     @Override
