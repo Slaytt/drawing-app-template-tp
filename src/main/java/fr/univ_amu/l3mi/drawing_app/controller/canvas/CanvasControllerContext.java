@@ -63,7 +63,7 @@ public class CanvasControllerContext implements PencilValues {
             strokeCross(view);
         }
         if(rectangleEditionClicked){
-            strokeRectangleBetweenClickedPointAndCursorPoint(view);
+            strokeRectangleBetweenClickedPointAndMousePoint(view);
         }
     }
 
@@ -84,7 +84,7 @@ public class CanvasControllerContext implements PencilValues {
         view.drawLine(p3, p4, Color.BLACK, CROSS_STROKE_WIDTH);
     }
 
-    private void strokeRectangleBetweenClickedPointAndCursorPoint(CanvasView view) {
+    private void strokeRectangleBetweenClickedPointAndMousePoint(CanvasView view) {
         new DrawVisitor(view).visit(new Rectangle(mouseClickedPoint, getMousePoint(), Color.TRANSPARENT,
                 getStrokeColor(), getStrokeWidth()));
     }
