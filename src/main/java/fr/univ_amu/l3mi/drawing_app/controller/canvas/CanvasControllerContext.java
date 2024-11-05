@@ -7,7 +7,7 @@ import fr.univ_amu.l3mi.drawing_app.view.CanvasView;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
-public class CanvasControllerContext {
+public class CanvasControllerContext implements PencilValues {
     public static final int CROSS_STROKE_WIDTH = 2;
     private boolean rectangleEdition;
     private boolean rectangleEditionClicked;
@@ -28,8 +28,8 @@ public class CanvasControllerContext {
     public void actionOnLeftMouseReleased(double x, double y) {
         if(rectangleEditionClicked) {
             mousePoint = new Point2D(x, y);
-            Shape rectangle = new Rectangle(mouseClickedPoint, mousePoint, shapeCanvasController.getFillColor(),
-                    shapeCanvasController.getStrokeColor(), shapeCanvasController.getStrokeWidth());
+            Shape rectangle = new Rectangle(mouseClickedPoint, mousePoint, getFillColor(),
+                    getStrokeColor(), shapeCanvasController.getStrokeWidth());
             shapeCanvasController.addShape(rectangle);
             switchToRectangleEdition();
             shapeCanvasController.repaint();
@@ -85,8 +85,8 @@ public class CanvasControllerContext {
     }
 
     private void strokeRectangleBetweenClickedPointAndCursorPoint(CanvasView view) {
-        new DrawVisitor(view).visit(new Rectangle(mouseClickedPoint, mousePoint, Color.TRANSPARENT,
-                shapeCanvasController.getStrokeColor(), shapeCanvasController.getStrokeWidth()));
+        new DrawVisitor(view).visit(new Rectangle(mouseClickedPoint, getMousePoint(), Color.TRANSPARENT,
+                getStrokeColor(), getStrokeWidth()));
     }
 
     public void actionOnRightMousePressed(double x, double y) {
@@ -129,6 +129,21 @@ public class CanvasControllerContext {
             case POLYGON_EDITION -> switchToPolygonEdition();
             case RECTANGLE_EDITION -> switchToRectangleEdition();
         }
+    }
+
+    @Override
+    public Color getStrokeColor() {
+        return shapeCanvasController.getStrokeColor();
+    }
+
+    @Override
+    public Color getFillColor() {
+        return shapeCanvasController.getFillColor();
+    }
+
+    @Override
+    public double getStrokeWidth() {
+        return shapeCanvasController.getStrokeWidth();
     }
 }
 
