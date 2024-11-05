@@ -43,7 +43,7 @@ public class SVGExporterVisitor implements ShapeVisitor<String>, ShapeFileWriter
                 convertColorToString(rectangle.getStrokeColor()) +
                 "\" stroke-width=\"" +
                 rectangle.getStrokeWidth() +
-                "\" />\n";
+                "\" />";
     }
 
     @Override
@@ -52,7 +52,7 @@ public class SVGExporterVisitor implements ShapeVisitor<String>, ShapeFileWriter
         writer.write("\" height=\"" + shapeContainer.getHeight());
         writer.write("\" xmlns=\"http://www.w3.org/2000/svg\">\n");
         for (Shape shape : shapeContainer.getShapes()) {
-            writer.write(shape.accept(this));
+            writer.write(shape.accept(this) + "\n");
         }
         writer.write("</svg>\n");
     }
