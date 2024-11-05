@@ -32,7 +32,7 @@ public class CanvasControllerContext implements PencilValues {
                     getStrokeColor(), shapeCanvasController.getStrokeWidth());
             addShape(rectangle);
             switchToRectangleEdition();
-            shapeCanvasController.repaint();
+            repaint();
         }
     }
 
@@ -148,6 +148,9 @@ public class CanvasControllerContext implements PencilValues {
 
     public void addShape(Shape shape) {
         shapeCanvasController.addShape(shape);
+    }
+    public void repaint(){
+        shapeCanvasController.repaint();
     }
 }
 
