@@ -41,12 +41,12 @@ public class CanvasControllerContext implements PencilValues {
         shapeCanvasController.repaint();
     }
 
-    private void switchToRectangleEdition(){
+    public void switchToRectangleEdition(){
         rectangleEdition = true;
         rectangleEditionClicked = false;
     }
 
-    private void switchToViewerMode(){
+    public void switchToViewerMode(){
         rectangleEdition = false;
         rectangleEditionClicked = false;
     }
@@ -90,25 +90,26 @@ public class CanvasControllerContext implements PencilValues {
     }
 
     public void actionOnRightMousePressed(double x, double y) {
+        // TODO : add action for right mouse click
     }
 
     public void actionOnRightMouseReleased(double x, double y) {
-
+        // TODO : add action for right mouse click
     }
 
-    private void switchToMoveMode() {
+    public void switchToMoveMode() {
         // TODO : add move mode
     }
 
-    private void switchToCircleEdition() {
+    public void switchToCircleEdition() {
         // TODO : add circle edition
     }
 
-    private void switchToPolygonEdition() {
+    public void switchToPolygonEdition() {
         // TODO : add polygon edition
     }
 
-    private void switchToDeleteMode() {
+    public void switchToDeleteMode() {
         // TODO : add delete mode
     }
 
@@ -121,14 +122,7 @@ public class CanvasControllerContext implements PencilValues {
     }
 
     public void switchToMode(Mode mode) {
-        switch (mode){
-            case DELETE_MODE -> switchToDeleteMode();
-            case VIEWER_MODE -> switchToViewerMode();
-            case MOVE_EDITION -> switchToMoveMode();
-            case CIRCLE_EDITION -> switchToCircleEdition();
-            case POLYGON_EDITION -> switchToPolygonEdition();
-            case RECTANGLE_EDITION -> switchToRectangleEdition();
-        }
+        mode.switchMode(this);
         repaint();
     }
 

@@ -11,6 +11,8 @@ import fr.univ_amu.l3mi.drawing_app.view.DrawingAppView;
 import fr.univ_amu.l3mi.drawing_app.view.javafx.view.FileExtension;
 import javafx.scene.paint.Color;
 
+import java.util.Optional;
+
 public class DrawingAppController implements Controller<DrawingAppView>, PencilValues {
     private DrawingAppView view;
     private Color strokeColor;
@@ -73,9 +75,12 @@ public class DrawingAppController implements Controller<DrawingAppView>, PencilV
 
     @Override
     public void actionOnKeyPressed(String key) {
-        Mode mode = Mode.getModeByKey(key);
-        view.setComboBoxChoice("ModeComboBox", mode.getName());
-        shapeCanvasController.switchToMode(mode);
+        Optional<Mode> optionalMode = Mode.getModeByKey(key);
+        if (optionalMode.isPresent()) {
+            Mode mode = optionalMode.get();
+            view.setComboBoxChoice("ModeComboBox", mode.getName());
+            shapeCanvasController.switchToMode(mode);
+        }
     }
 
     @Override
@@ -85,7 +90,6 @@ public class DrawingAppController implements Controller<DrawingAppView>, PencilV
             case "OpacityComboBox" -> opacity = Double.parseDouble(choice);
             case "StrokeWidthComboBox" -> strokeWidth = Double.parseDouble(choice);
         }
-
     }
 
     @Override
