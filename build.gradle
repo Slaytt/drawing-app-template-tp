@@ -1,9 +1,10 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.javamodularity.moduleplugin' version '1.8.12'
     id 'org.openjfx.javafxplugin' version '0.1.0'
-    id 'org.beryx.jlink' version '3.0.1'
+    id 'com.gradleup.shadow' version '9.2.2'
+    id("jacoco")
+    id("org.barfuin.gradle.jacocolog") version "3.1.0"
 }
 
 group 'fr.univ_amu.m1info.board_game_library'
@@ -13,14 +14,20 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'fr.univ_amu.l3mi.drawing_app.app.DrawingApp'
+    }
+}
+
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(22)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 
 ext {
-    junitVersion = '5.11.3'
+    junitVersion = '6.0.0'
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -29,32 +36,61 @@ tasks.withType(JavaCompile).configureEach {
 
 application {
     mainModule = 'fr.univ_amu.l3mi.drawing_app'
-    mainClass = 'fr.univ_amu.l3mi.drawing_app.DrawingApp'
+    mainClass = 'fr.univ_amu.l3mi.drawing_app.app.DrawingApp'
+    applicationDefaultJvmArgs = ['--enable-native-access=javafx.graphics']
 }
 
 javafx {
-    version = '22.0.1'
-    modules = ['javafx.controls', 'javafx.fxml']
+    version = '25'
+    modules = ['javafx.controls']
 }
 
 dependencies {
-    testImplementation("org.assertj:assertj-core:3.26.3")
+    testImplementation("org.assertj:assertj-core:3.27.3")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 test {
     useJUnitPlatform()
 }
 
-jlink {
-    imageZip = project.file("${rootProject.layout.buildDirectory}/distributions/app-${javafx.platform.classifier}.zip")
-    options = ['--strip-debug', '2', '--no-header-files', '--no-man-pages']
-    launcher {
-        name = 'app'
+def jacocoExclude = [
+        'fr/univ_amu/l3mi//drawing_app/controller/**',
+        'fr/univ_amu/l3mi//drawing_app/view/**',
+        'fr/univ_amu/l3mi//drawing_app/app/**'
+]
+
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+}
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)// tests are required to run before generating the report
+    reports {
+        xml.required = true
+        csv.required = true
+    }
+
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: jacocoExclude)
+        }))
     }
 }
 
-jlinkZip {
-    group = 'distribution'
+jacocoTestCoverageVerification {
+    afterEvaluate {
+        getClassDirectories().setFrom(classDirectories.files.collect {
+            fileTree(dir: it, exclude: jacocoExclude)
+        })
+    }
 }
+
+
+

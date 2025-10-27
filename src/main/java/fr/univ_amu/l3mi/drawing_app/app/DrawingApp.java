@@ -1,4 +1,4 @@
-package fr.univ_amu.l3mi.drawing_app;
+package fr.univ_amu.l3mi.drawing_app.app;
 
 import fr.univ_amu.l3mi.drawing_app.controller.DrawingAppController;
 import fr.univ_amu.l3mi.drawing_app.controller.canvas.Mode;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DrawingApp {
 
-    public static void main(String[] args) {
+    static void main() {
         DrawingAppConfiguration drawingAppConfiguration = new DrawingAppConfiguration("Drawing App",
                 new CanvasDimensions(1000, 800),
                 List.of(new ColorPickerConfiguration("Color", "ColorPicker")),

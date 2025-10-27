@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 import static org.assertj.core.api.Assertions.*;
 
 
@@ -78,5 +79,11 @@ class RectangleTest {
         assertThat(rectangle2.getHeight()).isEqualTo(y2-y1);
         assertThat(rectangle3.getHeight()).isEqualTo(y2-y1);
         assertThat(rectangle4.getHeight()).isEqualTo(y2-y1);
+    }
+
+    @Test
+    void testGetPointsCount(){
+        assertThat(rectangle1.getPointsCount()).isEqualTo(2);
+        assertThat(rectangle2.getPointsCount()).isEqualTo(2);
     }
 }

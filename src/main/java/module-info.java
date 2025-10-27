@@ -1,10 +1,9 @@
 module fr.univ_amu.l3mi.drawing_app {
     requires javafx.controls;
-    requires javafx.fxml;
     requires java.desktop;
 
     exports fr.univ_amu.l3mi.drawing_app.view;
-    exports fr.univ_amu.l3mi.drawing_app;
+    exports fr.univ_amu.l3mi.drawing_app.app;
     exports fr.univ_amu.l3mi.drawing_app.view.javafx.app;
     exports fr.univ_amu.l3mi.drawing_app.view.configuration;
     exports fr.univ_amu.l3mi.drawing_app.view.javafx.view;
