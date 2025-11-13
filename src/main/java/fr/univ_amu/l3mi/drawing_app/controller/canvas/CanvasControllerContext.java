@@ -8,64 +8,55 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 public class CanvasControllerContext implements PencilValues {
-    public static final int CROSS_STROKE_WIDTH = 2;
-    private boolean rectangleEdition;
-    private boolean rectangleEditionClicked;
-    private Point2D mouseClickedPoint;
+
     private Point2D mousePoint;
     private final ShapeCanvasController shapeCanvasController;
+    private ContextState state;
 
-    public CanvasControllerContext(ShapeCanvasController shapeCanvasController) {
-        this.shapeCanvasController = shapeCanvasController;
+    public CanvasControllerContext(ShapeCanvasController s) {
+        this.shapeCanvasController = s;
+        this.mousePoint = new Point2D(0, 0);
+        this.state = new ViewerMode();
+    }
+
+    public void changeState(ContextState newState) {
+        this.state = newState;
     }
 
     public void actionOnLeftMousePressed(double x, double y) {
-        if (rectangleEdition) {
-            switchToRectangleEditionClicked(x, y);
-        }
+        state.actionOnLeftMousePressed(this, x, y);
     }
 
     public void actionOnLeftMouseReleased(double x, double y) {
-        if(rectangleEditionClicked) {
-            mousePoint = new Point2D(x, y);
-            Shape rectangle = new Rectangle(mouseClickedPoint, mousePoint, getFillColor(),
-                    getStrokeColor(), shapeCanvasController.getStrokeWidth());
-            addShape(rectangle);
-            switchToRectangleEdition();
-            repaint();
-        }
+        state.actionOnLeftMouseReleased(this, x, y);
+    }
+
+    public void actionOnRightMousePressed(double x, double y) {
+        state.actionOnRightMousePressed(this, x, y);
+    }
+
+    public void actionOnRightMouseReleased(double x, double y) {
+        state.actionOnRightMouseReleased(this, x, y);
     }
 
     public void actionOnMouseMoved(double x, double y) {
         mousePoint = new Point2D(x, y);
-        shapeCanvasController.repaint();
+        state.actionOnMouseMoved(this, x, y);
     }
 
-    public void switchToRectangleEdition(){
-        rectangleEdition = true;
-        rectangleEditionClicked = false;
+    public void paint(CanvasView view) {
+        state.paint(this, view);
     }
 
-    public void switchToViewerMode(){
-        rectangleEdition = false;
-        rectangleEditionClicked = false;
+    public void switchToRectangleEdition() {
+        changeState(new RectangleEdition());
     }
 
-    private void switchToRectangleEditionClicked(double x, double y){
-        rectangleEdition = false;
-        rectangleEditionClicked = true;
-        mouseClickedPoint = new Point2D(x, y);
-        setMousePoint(new Point2D(x, y));
+    public void switchToViewerMode() {
+        changeState(new ViewerMode());
     }
 
-    public void paint(CanvasView view){
-        if(rectangleEdition) {
-            strokeCross(view);
-        }
-        if(rectangleEditionClicked){
-            strokeRectangleBetweenClickedPointAndMousePoint(view);
-        }
-    }
+
 
     public Point2D getMousePoint() {
         return mousePoint;
@@ -75,34 +66,14 @@ public class CanvasControllerContext implements PencilValues {
         this.mousePoint = mousePoint;
     }
 
-    private void strokeCross(CanvasView view) {
-        Point2D p1 = getMousePoint().add(new Point2D(10,0));
-        Point2D p2 = getMousePoint().add(new Point2D(-10,0));
-        view.drawLine(p1, p2, Color.BLACK, CROSS_STROKE_WIDTH);
-        Point2D p3 = getMousePoint().add(new Point2D(0,10));
-        Point2D p4 = getMousePoint().add(new Point2D(0,-10));
-        view.drawLine(p3, p4, Color.BLACK, CROSS_STROKE_WIDTH);
-    }
 
-    private void strokeRectangleBetweenClickedPointAndMousePoint(CanvasView view) {
-        new DrawVisitor(view).visit(new Rectangle(mouseClickedPoint, getMousePoint(), Color.TRANSPARENT,
-                getStrokeColor(), getStrokeWidth()));
-    }
-
-    public void actionOnRightMousePressed(double x, double y) {
-        // TODO : add action for right mouse click
-    }
-
-    public void actionOnRightMouseReleased(double x, double y) {
-        // TODO : add action for right mouse click
-    }
 
     public void switchToMoveMode() {
         // TODO : add move mode
     }
 
     public void switchToCircleEdition() {
-        // TODO : add circle edition
+        changeState(new CircleEdition());
     }
 
     public void switchToPolygonEdition() {

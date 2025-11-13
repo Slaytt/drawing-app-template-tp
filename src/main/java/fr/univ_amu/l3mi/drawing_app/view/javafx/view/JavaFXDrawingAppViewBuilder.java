@@ -27,7 +27,7 @@ public class JavaFXDrawingAppViewBuilder implements DrawingAppViewBuilder {
     @Override
     public DrawingAppViewBuilder addComboBox(String id, String label, List<String> choice) {
         drawingAppView.getBar().addComboBox(id, label, choice);
-        drawingAppView.getBar().setComboBoxAction(id, _ -> drawingAppView.actionOnChoicePicked(id));
+        drawingAppView.getBar().setComboBoxAction(id, _-> drawingAppView.actionOnChoicePicked(id));
         return this;
     }
 

@@ -20,11 +20,6 @@ jar {
     }
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(25)
-    }
-}
 
 ext {
     junitVersion = '6.0.0'
