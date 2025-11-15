@@ -1,6 +1,7 @@
 package fr.univ_amu.l3mi.drawing_app.controller.canvas;
 
 import fr.univ_amu.l3mi.drawing_app.view.CanvasView;
+import javafx.geometry.Point2D;
 
 public interface ContextState {
 
@@ -15,4 +16,5 @@ public interface ContextState {
     void actionOnRightMouseReleased(CanvasControllerContext context, double x, double y);
 
     void actionOnMouseMoved(CanvasControllerContext context, double x, double y);
+
 }

@@ -6,10 +6,27 @@ import javafx.scene.paint.Color;
 
 public class CircleEdition implements ContextState {
 
-    private static final int CROSS_STROKE_WIDTH = 2;
+    private static final int CROSS_LINE_WIDTH = 2;
     private static final int CROSS_LENGTH = 10;
+    private static final Color GHOST_COLOR = new Color(0.5, 0.5, 0.5, 0.5);
+    private final Point2D ghostCrossPoint;
 
     public CircleEdition() {
+        this(null);
+    }
+
+    public CircleEdition(Point2D ghostCrossPoint) {
+        this.ghostCrossPoint = ghostCrossPoint;
+    }
+
+    private void drawGhostCross(CanvasView view, Point2D point) {
+        Point2D p1 = point.add(new Point2D(CROSS_LENGTH, 0));
+        Point2D p2 = point.add(new Point2D(-CROSS_LENGTH, 0));
+        view.drawLine(p1, p2, GHOST_COLOR, CROSS_LINE_WIDTH);
+
+        Point2D p3 = point.add(new Point2D(0, CROSS_LENGTH));
+        Point2D p4 = point.add(new Point2D(0, -CROSS_LENGTH));
+        view.drawLine(p3, p4, GHOST_COLOR, CROSS_LINE_WIDTH);
     }
 
     private void strokeCross(CanvasControllerContext context, CanvasView view) {
@@ -19,16 +36,20 @@ public class CircleEdition implements ContextState {
         }
         Point2D p1 = mouse.add(new Point2D(CROSS_LENGTH, 0));
         Point2D p2 = mouse.add(new Point2D(-CROSS_LENGTH, 0));
-        view.drawLine(p1, p2, Color.BLACK, CROSS_STROKE_WIDTH);
+        view.drawLine(p1, p2, Color.BLACK, CROSS_LINE_WIDTH);
 
         Point2D p3 = mouse.add(new Point2D(0, CROSS_LENGTH));
         Point2D p4 = mouse.add(new Point2D(0, -CROSS_LENGTH));
-        view.drawLine(p3, p4, Color.BLACK, CROSS_STROKE_WIDTH);
+        view.drawLine(p3, p4, Color.BLACK, CROSS_LINE_WIDTH);
     }
 
     @Override
     public void paint(CanvasControllerContext context, CanvasView view) {
         strokeCross(context, view);
+
+        if (ghostCrossPoint != null) {
+            drawGhostCross(view, ghostCrossPoint);
+        }
     }
 
     @Override

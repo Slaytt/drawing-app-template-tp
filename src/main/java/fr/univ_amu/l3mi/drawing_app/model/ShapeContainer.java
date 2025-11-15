@@ -1,5 +1,7 @@
 package fr.univ_amu.l3mi.drawing_app.model;
 
+import javafx.geometry.Point2D;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,20 @@ public class ShapeContainer {
 
     public void clear(){
         shapes.clear();
+    }
+
+    public List<Shape> shapesContaining(Point2D point) {
+        List<Shape> found = new ArrayList<>();
+        for (Shape shape : shapes) {
+            if (shape.contains(point)) {
+                found.add(shape);
+            }
+        }
+        return found;
+    }
+
+    public void remove(Shape shape) {
+        shapes.remove(shape);
     }
 
 }

@@ -32,4 +32,10 @@ public class Rectangle extends AbstractShape {
     public <R> R accept(ShapeVisitor<R> visitor) {
         return visitor.visit(this);
     }
+
+    @Override
+    public boolean contains(Point2D point) {
+        return point.getX() >= getPoint(0).getX() && point.getX() <= getPoint(1).getX() &&
+                point.getY() >= getPoint(0).getY() && point.getY() <= getPoint(1).getY();
+    }
 }

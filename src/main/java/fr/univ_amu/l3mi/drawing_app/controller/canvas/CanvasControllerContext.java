@@ -7,6 +7,8 @@ import fr.univ_amu.l3mi.drawing_app.view.CanvasView;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
+import java.util.List;
+
 public class CanvasControllerContext implements PencilValues {
 
     private Point2D mousePoint;
@@ -56,6 +58,14 @@ public class CanvasControllerContext implements PencilValues {
         changeState(new ViewerMode());
     }
 
+    public List<Shape> shapesContaining(Point2D point) {
+        return shapeCanvasController.shapesContaining(point);
+    }
+
+    public void remove(Shape shape) {
+        shapeCanvasController.remove(shape);
+    }
+
 
 
     public Point2D getMousePoint() {
@@ -77,11 +87,11 @@ public class CanvasControllerContext implements PencilValues {
     }
 
     public void switchToPolygonEdition() {
-        // TODO : add polygon edition
+        changeState(new PolygonEdition());
     }
 
     public void switchToDeleteMode() {
-        // TODO : add delete mode
+        changeState(new DeleteMode());
     }
 
     public void redo() {

@@ -1,8 +1,6 @@
 package fr.univ_amu.l3mi.drawing_app.controller;
 
-import fr.univ_amu.l3mi.drawing_app.model.Rectangle;
-import fr.univ_amu.l3mi.drawing_app.model.Shape;
-import fr.univ_amu.l3mi.drawing_app.model.ShapeVisitor;
+import fr.univ_amu.l3mi.drawing_app.model.*;
 import fr.univ_amu.l3mi.drawing_app.view.CanvasView;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -33,5 +31,17 @@ public class DrawVisitor implements ShapeVisitor<Void> {
 
     private void visit(Shape shape) {
         shape.accept(this);
+    }
+
+    @Override
+    public Void visit(Circle c) {
+        view.drawCircle(c.getCenter(), c.getRadius(),c.getFillColor(), c.getStrokeColor(), c.getStrokeWidth());
+        return null;
+    }
+
+    @Override
+    public Void visit(Polygon p) {
+        view.drawPolygon(p.getPoints(), p.getFillColor(), p.getStrokeColor(), p.getStrokeWidth());
+        return null;
     }
 }

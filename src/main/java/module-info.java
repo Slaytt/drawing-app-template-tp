@@ -1,6 +1,7 @@
 module fr.univ_amu.l3mi.drawing_app {
     requires javafx.controls;
     requires java.desktop;
+    requires javafx.graphics;
 
     exports fr.univ_amu.l3mi.drawing_app.view;
     exports fr.univ_amu.l3mi.drawing_app.app;

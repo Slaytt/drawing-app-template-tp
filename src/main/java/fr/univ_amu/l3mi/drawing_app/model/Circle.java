@@ -12,7 +12,7 @@ public class Circle extends AbstractShape {
 
     @Override
     public <R> R accept(ShapeVisitor<R> visitor) {
-        return null;
+        return visitor.visit(this);
     }
 
     public Point2D getCenter() {
@@ -21,5 +21,9 @@ public class Circle extends AbstractShape {
 
     public double getRadius() {
         return getPoint(0).distance(getPoint(1));
+    }
+
+    public boolean contains(Point2D point) {
+        return point.distance(getCenter()) <= getRadius();
     }
 }

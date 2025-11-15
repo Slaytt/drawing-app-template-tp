@@ -1,9 +1,6 @@
 package fr.univ_amu.l3mi.drawing_app.model.file;
 
-import fr.univ_amu.l3mi.drawing_app.model.Rectangle;
-import fr.univ_amu.l3mi.drawing_app.model.Shape;
-import fr.univ_amu.l3mi.drawing_app.model.ShapeContainer;
-import fr.univ_amu.l3mi.drawing_app.model.ShapeVisitor;
+import fr.univ_amu.l3mi.drawing_app.model.*;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
@@ -43,6 +40,37 @@ public class SVGExporterVisitor implements ShapeVisitor<String>, ShapeFileWriter
                 convertColorToString(rectangle.getStrokeColor()) +
                 "\" stroke-width=\"" +
                 rectangle.getStrokeWidth() +
+                "\" />";
+    }
+
+    @Override
+    public String visit(Circle c) {
+        return "<circle cx=\"" + c.getCenter().getX() +
+                "\" cy=\"" + c.getCenter().getY() +
+                "\" r=\"" + c.getRadius() +
+                "\" fill=\"" +
+                convertColorToString(c.getFillColor()) +
+                "\" stroke=\"" +
+                convertColorToString(c.getStrokeColor()) +
+                "\" stroke-width=\"" +
+                c.getStrokeWidth() +
+                "\" />";
+    }
+
+    @Override
+    public String visit(Polygon p) {
+        StringBuilder pointsStr = new StringBuilder();
+        for (int i = 0; i < p.getPointsCount(); i++) {
+            pointsStr.append(p.getPoint(i).getX()).append(",").append(p.getPoint(i).getY()).append(" ");
+        }
+
+        return "<polygon points=\"" + pointsStr.toString().trim() +
+                "\" fill=\"" +
+                convertColorToString(p.getFillColor()) +
+                "\" stroke=\"" +
+                convertColorToString(p.getStrokeColor()) +
+                "\" stroke-width=\"" +
+                p.getStrokeWidth() +
                 "\" />";
     }
 

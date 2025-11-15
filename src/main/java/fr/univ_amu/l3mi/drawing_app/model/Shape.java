@@ -16,4 +16,6 @@ public interface Shape {
     double getStrokeWidth();
 
     Point2D getPoint(int index);
+
+    boolean contains(Point2D point);
 }

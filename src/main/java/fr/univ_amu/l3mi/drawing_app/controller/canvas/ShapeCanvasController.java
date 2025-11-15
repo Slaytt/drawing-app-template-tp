@@ -6,7 +6,10 @@ import fr.univ_amu.l3mi.drawing_app.model.ShapeContainer;
 import fr.univ_amu.l3mi.drawing_app.view.CanvasController;
 import fr.univ_amu.l3mi.drawing_app.view.CanvasView;
 import fr.univ_amu.l3mi.drawing_app.view.configuration.CanvasDimensions;
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
+
+import java.util.List;
 
 public class ShapeCanvasController implements CanvasController, PencilValues {
     private final CanvasControllerContext context;
@@ -78,6 +81,14 @@ public class ShapeCanvasController implements CanvasController, PencilValues {
     public void clear(){
         shapeContainer.clear();
         repaint();
+    }
+
+    public List<Shape> shapesContaining(Point2D point) {
+        return shapeContainer.shapesContaining(point);
+    }
+
+    public void remove(Shape shape) {
+        shapeContainer.remove(shape);
     }
 
    public void switchToMode(Mode mode){
